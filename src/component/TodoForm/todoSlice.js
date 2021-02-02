@@ -42,6 +42,8 @@ export const todoSlice = createSlice({
       }
     }).then(function (response) {
         dispatch(fetchTasks());
+    }).catch(err => {
+      dispatch(showAlert({alert:true, message:"Error!!"}))
     })    
   };
 
@@ -49,6 +51,8 @@ export const todoSlice = createSlice({
     dispatch(startLoader())
     axios.get('https://tiny-list.herokuapp.com/api/v1/users/111/tasks').then(function (response) {
         dispatch(addToList(response.data));
+    }).catch(err => {
+      dispatch(showAlert({alert:true, message:"Error!!"}))
     })    
   };
 
@@ -57,7 +61,9 @@ export const todoSlice = createSlice({
     axios.delete(`https://tiny-list.herokuapp.com/api/v1/users/111/tasks/${task}`).then(function (response) {
       dispatch(fetchTasks());
       dispatch(showAlert({alert:true, message:"Task Deleted!"}))
-    })    
+    }).catch(err => {
+      dispatch(showAlert({alert:true, message:"Error!!"}))
+    })      
   };
 
   export const completeTask = task => dispatch => {
@@ -65,7 +71,9 @@ export const todoSlice = createSlice({
     axios.put(`https://tiny-list.herokuapp.com/api/v1/users/111/tasks/${task}/completed`).then(function (response) {
       dispatch(fetchTasks());
       dispatch(showAlert({alert:true, message:"Task Completed!"}))
-    })    
+    }).catch(err => {
+      dispatch(showAlert({alert:true, message:"Error!!"}))
+    })      
   };
 
   export const unCompleteTask = task => dispatch => {
@@ -73,7 +81,9 @@ export const todoSlice = createSlice({
     axios.put(`https://tiny-list.herokuapp.com/api/v1/users/111/tasks/${task}/uncompleted`).then(function (response) {
       dispatch(fetchTasks());
       dispatch(showAlert({alert:true, message:"Task Uncompleted!"}))
-    })    
+    }).catch(err => {
+      dispatch(showAlert({alert:true, message:"Error!!"}))
+    })      
   };
 
   export const editTaskPost = (taskId, description )=> dispatch => {
@@ -81,7 +91,9 @@ export const todoSlice = createSlice({
     axios.put(`https://tiny-list.herokuapp.com/api/v1/users/111/tasks/${taskId}`, { task : { description } }).then(function (response) {
       dispatch(fetchTasks());
       dispatch(showAlert({alert:true, message:"Task Edited!"}))
-    })    
+    }).catch(err => {
+      dispatch(showAlert({alert:true, message:"Error!!"}))
+    })      
   };
 
   export const editTask = (data) => dispatch => {
